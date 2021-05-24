@@ -1,62 +1,135 @@
-import React,{Fragment,useState} from 'react';
+import React,{Fragment,useState,useEffect} from 'react';
+import axios from 'axios';
 import SingleHero from './SingleHero';
 
 const Superhero = () => {
 
+
     const [heroes,setHeroes] = useState([
             
-        {
-          "id": "5f899de21444225f503765c6",
-          
-          "views": 425,
-          "rating": 4.5,
-          "title": "My Fifteen Blog Post",
-          "slug": "my-fifteen-blog-post",
-          "body": "This is the content of my first blog that i have created through postmn by using my own api to interatct with database",
-          "category": "Tech",
-          "money":{
-              "price":500
-          }
-        },
-        {
-          "id":"5f8d842b6b73fe95dcae057e",
-          "views": 425,
-          "rating": 4.0,
-          "title": "My Sixteen Blog Post",
-          "slug": "my-sixteen-blog-post",
-          "body": "This is the content of my first blog that i have created through postmn by using my own api to interatct with database",
-          "category": "Non-Tech",
-          "money":{
-            "price":600
-            }
-        },
-        {
-          "id":"5f9000e12993178f98e22677",
-          
-          "views": 425,
-          "rating": 5,
-          "title": "My Seventeen Blog Post",
-          "slug": "my-seventeen-blog-post",
-          "body": "This is the content of my first blog that i have created through postmn by using my own api to interatct with database",
-          "category": "Confess",
-          "money":{
-            "price":500
-            }
-        }
+        // {
+        //   "id": "420",
+        //   "name":"Man-Wolf",
+        //   "appearance":{
+        //         "gender":"male",
+        //         "height":{
+        //             "0":"6'2",
+        //             "1":"188cm"
+        //         },
+        //         "weight":"90kg"
+        //   },
+        //   "biography":{
+        //         "fullName":"john Jameson",
+        //         "placeOfBirth":"New York, New York",
+        //         "publisher":"Marvel comics"
+        //   },
+        //   "images":{
+        //         "lg":"https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/lg/429-man-wolf.jpg"
+        //   },
+        //   "powerstats":{
+        //         "combat":70,
+        //         "durability":42,
+        //         "intelligence":63,
+        //         "power":45,
+        //         "speed":35,
+        //         "strength":44
+        //   }
+         
+        // },
+        // {
+        //     "id": "421",
+        //     "name":"Man-Wolf",
+        //     "appearance":{
+        //           "gender":"male",
+        //           "height":{
+        //               "0":"6'2",
+        //               "1":"188cm"
+        //           },
+        //           "weight":"90kg"
+        //     },
+        //     "biography":{
+        //           "fullName":"john Jameson",
+        //           "placeOfBirth":"New York, New York",
+        //           "publisher":"Marvel comics"
+        //     },
+        //     "images":{
+        //           "lg":"https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/lg/429-man-wolf.jpg"
+        //     },
+        //     "powerstats":{
+        //           "combat":70,
+        //           "durability":42,
+        //           "intelligence":63,
+        //           "power":45,
+        //           "speed":35,
+        //           "strength":44
+        //     }
+           
+        // },
+        // {
+        //     "id": "422",
+        //     "name":"Man-Wolf",
+        //     "appearance":{
+        //           "gender":"male",
+        //           "height":{
+        //               "0":"6'2",
+        //               "1":"188cm"
+        //           },
+        //           "weight":"90kg"
+        //     },
+        //     "biography":{
+        //           "fullName":"john Jameson",
+        //           "placeOfBirth":"New York, New York",
+        //           "publisher":"Marvel comics"
+        //     },
+        //     "images":{
+        //           "lg":"https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/lg/429-man-wolf.jpg"
+        //     },
+        //     "powerstats":{
+        //           "combat":70,
+        //           "durability":42,
+        //           "intelligence":63,
+        //           "power":45,
+        //           "speed":35,
+        //           "strength":44
+        //     }
+           
+        // } 
     ]);
-    console.log(heroes);
+    //console.log(heroes);
+
+    useEffect(async()=>{
+        //console.log("use effect fired");
+
+        const res = await axios.get(`https://superhero-search.p.rapidapi.com/api/heroes`,{
+            headers:{
+                'x-rapidapi-key':'c55a71dfdbmsh99fb2531a44af40p188352jsnf277366026c0'
+            }
+        });
+
+        //console.log(res.data);
+        setHeroes(res.data);
+
+    // eslint-disable-next-line
+    },[]);
 
     return (
         <Fragment>
-            <div>
+        {heroes == null ? <h1>Loading...</h1> : <div style={heroStyle}>
                 {heroes.map((hero)=>{
-                    return <SingleHero hero={hero}/>
+                    return <SingleHero hero={hero} key={hero.id}/>
                 })}
                 
-            </div>
+            </div>}
+            
         </Fragment>
         
     )
+};
+
+const heroStyle={
+    display:'grid',
+    gridTemplateColumns:'repeat(3 ,1fr)',
+    gridGap:'0.5rem'
 }
 
 export default Superhero;
