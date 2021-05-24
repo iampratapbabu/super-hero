@@ -1,24 +1,39 @@
-import logo from './logo.svg';
+import React,{Fragment} from 'react';
+import { Route,Switch } from "react-router-dom";
+
 import './App.css';
+
+//components files
+import About from './components/About';
+import Superhero from './components/Superhero';
+import Villain from './components/Villain';
+import Search from './components/Search';
+
+//layout files
+import Header from './layout/Header';
+import Footer from './layout/Footer';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+       <Header/>
+      <div className="container">
+        <Search/>
+        <Switch>
+          <Route exact path='/about'component={About}/>
+          <Route exact path='/superhero'component={Superhero}/>
+          <Route exact path='/villain'component={Villain}/>
+        </Switch>
+      
+      </div>
+      <Footer/>
+      
+    </Fragment>
+    
+    
+     
+    
   );
 }
 
