@@ -19,9 +19,10 @@ function App() {
     <Fragment>
        <Header/>
       <div className="container">
-        <Search/>
+      
+        
         <Switch>
-          <Route exact path='/about'component={About}/>
+          <Route exact path='/'component={About}/>
           <Route exact path='/superhero'component={Superhero}/>
           <Route exact path='/villain'component={Villain}/>
         </Switch>

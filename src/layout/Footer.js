@@ -4,8 +4,8 @@ const Footer = () => {
     return (
         <div>
         <hr/>
-           <div class="footer-copyright">
-            <div class="container">
+           <div className="footer-copyright">
+            <div className="container">
             <h6> © Developed By :{' '}
             <a class="dark-text" href="https://www.linkedin.com/in/pratapbabu/">Tej Pratap</a>
             </h6>

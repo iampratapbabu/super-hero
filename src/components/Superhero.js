@@ -1,6 +1,7 @@
 import React,{Fragment,useState,useEffect} from 'react';
 import axios from 'axios';
 import SingleHero from './SingleHero';
+import Search from './Search';
 
 const Superhero = () => {
 
@@ -97,10 +98,10 @@ const Superhero = () => {
     ]);
     //console.log(heroes);
 
-    useEffect(async()=>{
+    useEffect(()=>{
         //console.log("use effect fired");
-
-        const res = await axios.get(`https://superhero-search.p.rapidapi.com/api/heroes`,{
+        async function loadFunction(){
+            const res = await axios.get(`https://superhero-search.p.rapidapi.com/api/heroes`,{
             headers:{
                 'x-rapidapi-key':'c55a71dfdbmsh99fb2531a44af40p188352jsnf277366026c0'
             }
@@ -108,12 +109,17 @@ const Superhero = () => {
 
         //console.log(res.data);
         setHeroes(res.data);
+        }
+        loadFunction();
+
+        
 
     // eslint-disable-next-line
     },[]);
 
     return (
         <Fragment>
+        <Search/>
         {heroes == null ? <h1>Loading...</h1> : <div style={heroStyle}>
                 {heroes.map((hero)=>{
                     return <SingleHero hero={hero} key={hero.id}/>
